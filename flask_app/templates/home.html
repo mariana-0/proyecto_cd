@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+    <input type="hidden" name="id" value="user.id">
+    {% if user.id!=1 %}
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h3 class>PeliReview</h3>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/view_user">View your user information</a>
+                <a class="nav-item nav-link active" href="/edit_user">Edit your user information</a>
+                <a class="nav-item nav-link active btn btn-warning" href="/logout">Logout</a>
+            </div>
+        </nav> 
+        <div class="mt-3">   
+            <h4 class="text-center">Hello! {{user.nickname}}, What do you want to do today?</h4>
+            <p class="text-center">Recommend or search movies according to your preferences:</p>
+        </div>
+        <div class="mx-auto row mt-5">
+            <div class="col-4">
+                <h5>Genre</h5>
+                <ul>
+                    <li><a class="link-dark" href="/">Action</a></li>
+                    <li><a class="link-dark" href="/">Comedy</a></li>
+                    <li><a class="link-dark" href="/">Drama</a></li>
+                    <li><a class="link-dark" href="/">Fantasy</a></li>
+                    <li><a class="link-dark" href="/">Horror</a></li>
+                    <li><a class="link-dark" href="/">Romance</a></li>
+                    <li><a class="link-dark" href="/">Thriller</a></li>
+                    <li><a class="link-dark" href="/">Science fiction</a></li>
+                    <li><a class="link-dark" href="/">Adventure</a></li>
+                    <li><a class="link-dark" href="/">Historical</a></li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <h5>Country</h5>
+                <ul>
+                    <li><a class="link-dark" href="/">USA</a></li>
+                    <li><a class="link-dark" href="/">UK</a></li>
+                    <li><a class="link-dark" href="/">France</a></li>
+                    <li><a class="link-dark" href="/">China</a></li>
+                    <li><a class="link-dark" href="/">India</a></li>
+                    <li><a class="link-dark" href="/">Spain</a></li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <h5>Released year</h5>
+                <ul>
+                    <li><a class="link-dark" href="/">2015-Today</a></li>
+                    <li><a class="link-dark" href="/">2007-2014</a></li>
+                    <li><a class="link-dark" href="/">1999-2006</a></li>
+                    <li><a class="link-dark" href="/">Before 1998</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="text-center"><a class="link-dark"     href="">All</a></p>
+    </div>
+    {% endif %}
+    {% if user.id==1 %}
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h3 class>PeliReview</h3>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Edit your user information</a>
+                <a class="nav-item nav-link active" href="#">View your user information</a>
+                <a class="nav-item nav-link active btn btn-warning" href="/logout">Logout</a>
+            </div>
+        </nav> 
+        <div class="mt-3">   
+            <h4 class="text-center">Hello! {{user.nickname}}, Please see your admin menu</h4>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h5>Users information</h5>
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Nickname</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users%}
+                        {% if user.id!= 1%}
+                        <tr>
+                            <td>{{user.nickname}}</td>
+                            <td>{{user.first_name}}</td>
+                            <td>{{user.last_name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>
+                                <a href="delete/{{user.id}}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p><strong>{{count['count(*)']-1}}</strong> user(s) have been registered in your webpage</p>
+            </div>
+            <!-- Poner línea vertical -->
+            <!-- <div class="vr"></div> -->
+            <div class="col-6">
+                <h5>Movies information</h5>
+                <a class="btn btn-success" href="/create_movie">+ Create a new movie</a>
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for movie in movies %}
+                            <tr>
+                                <td>{{movie.id}}</td>
+                                <td>{{movie.name}}</td>
+                                <td>
+                                    <a href="/view_movie/{{movie.id}}" class="btn btn-primary">View</a>
+                                    <a href="/edit_movie/{{movie.id}}" class="btn btn-warning">Edit</a>
+                                    <a href="/delete_movie/{{movie.id}}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p><strong>{{count_m['count(*)']}}</strong> movie(s) have been created in your webpage</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
