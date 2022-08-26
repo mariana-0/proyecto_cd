@@ -13,15 +13,27 @@ class Movie:
         self.created_at=data['created_at']
         self.updated_at=data['updated_at']
         
+        self.average_rate=data['average_rate']
+        
     @classmethod
     def insert_movie(cls, form):
         query='INSERT INTO movies (name, year, genre, director, country) VALUES (%(name)s,%(year)s,%(genre)s,%(director)s,%(country)s)'
         result=connectToMySQL('proyecto').query_db(query,form)
         return result
     
+    # @classmethod
+    # def view_movies(cls):
+    #     query='SELECT * FROM movies'
+    #     results=connectToMySQL('proyecto').query_db(query)
+    #     movies=[]
+    #     for movie in results:
+    #         inst_movie=cls(movie)
+    #         movies.append(inst_movie)
+    #     return movies
+    
     @classmethod
     def view_movies(cls):
-        query='SELECT * FROM movies'
+        query='SELECT movies.*, round(AVG(reviews.rate),1) AS average_rate FROM movies LEFT JOIN reviews ON movies.id=reviews.movie_id GROUP BY movies.id;'
         results=connectToMySQL('proyecto').query_db(query)
         movies=[]
         for movie in results:
@@ -39,10 +51,8 @@ class Movie:
     def view_by_id(cls,data):
         query = 'SELECT * FROM movies WHERE id=%(id)s'
         result = connectToMySQL('proyecto').query_db(query,data)
-        print('hiiiiiiiiii', result)
-        movie = cls(result[0])
-        return movie
-    
+        return result[0]
+        
     @classmethod
     def update_movie(cls,form):
         query = 'UPDATE movies SET name=%(name)s, year=%(year)s, director=%(director)s, country=%(country)s WHERE id=%(id)s'
@@ -58,7 +68,7 @@ class Movie:
     @classmethod
     def delete_movie(cls,data):
         query='DELETE FROM movies WHERE id=%(id)s'
-        result=connectToMySQL('proyecyo').query_db(query,data)
+        result=connectToMySQL('proyecto').query_db(query,data)
         return result
     
     @staticmethod

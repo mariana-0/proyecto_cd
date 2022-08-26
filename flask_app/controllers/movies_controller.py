@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, session, flash
 from flask_app import app
 #from flask_app.models.user import User
 from flask_app.models.movie import Movie
+from flask_app.models.review import Review
 from flask_bcrypt import Bcrypt   
 from datetime import datetime, timedelta, date
 
@@ -34,3 +35,30 @@ def edit_movie(id):
     data = {'id':id}
     movie=Movie.view_by_id(data)
     return render_template('edit_movie.html',movie=movie)
+
+@app.route('/update_movie', methods=['POST'])
+def update_movie():
+    if not Movie.valid_movie(request.form):
+        return redirect('/edit_movie/'+request.form['id'])
+    Movie.update_movie(request.form)
+    return redirect('/view_movie/'+request.form['id'])
+
+@app.route('/change_genre', methods=['POST'])
+def change_genre():
+    Movie.update_genre(request.form)
+    return redirect('/view_movie/'+request.form['id'])
+
+@app.route('/delete_movie/<int:id>')
+def delete_movie(id):
+    if not 'id' in session:
+        return redirect('/login')
+    data = {'id':id}
+    Movie.delete_movie(data)
+    return redirect('/home')
+
+@app.route('/view_movies')
+def view_all_movies():
+    if not 'id' in session:
+        return redirect('/login')
+    movies=Movie.view_movies()
+    return render_template('/view_movies.html',movies=movies)

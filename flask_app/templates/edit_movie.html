@@ -29,6 +29,7 @@
                 {% endif %}
                 {% endwith %}
                 <form action="/update_movie" method="post">
+                    <input type="hidden" name="id" value="{{movie.id}}">
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" class="form-control" value="{{movie.name}}"></input>
@@ -43,9 +44,9 @@
                     </div>
                     <div class="form-group">
                         <label for="country">Country:</label>
-                        <input type="text" id="country" name="country" class="form-control" value="{{movie.director}}"></input>
+                        <input type="text" id="country" name="country" class="form-control" value="{{movie.country}}"></input>
                     </div>
-                    <input type="submit" value="Create" class="btn btn-success mt-2">
+                    <input type="submit" value="Edit" class="btn btn-success mt-2">
                 </form>
             </div>
             <div class="col-6">
@@ -55,6 +56,7 @@
                     <p class="form-group">{{movie.genre}}</p>
                 </div>
                 <form action="/change_genre" method="post">
+                    <input type="hidden" name="id" value="{{movie.id}}">
                     <div class="form-group">
                         <label for="genre">Set a new main Genre:</label>
                         <select class="form-control" id="genre" name="genre">

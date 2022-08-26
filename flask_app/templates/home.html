@@ -41,14 +41,14 @@
             </div>
             <div class="col-4">
                 <h5>Country</h5>
-                <ul>
-                    <li><a class="link-dark" href="/">USA</a></li>
-                    <li><a class="link-dark" href="/">UK</a></li>
-                    <li><a class="link-dark" href="/">France</a></li>
-                    <li><a class="link-dark" href="/">China</a></li>
-                    <li><a class="link-dark" href="/">India</a></li>
-                    <li><a class="link-dark" href="/">Spain</a></li>
-                </ul>
+                <ol type="a">
+                    <li value="1"><a class="link-dark" href="/">USA</a></li>
+                    <li value="2"><a class="link-dark" href="/">UK</a></li>
+                    <li value="3"><a class="link-dark" href="/">France</a></li>
+                    <li value="4"><a class="link-dark" href="/">China</a></li>
+                    <li value="5"><a class="link-dark" href="/">India</a></li>
+                    <li vlaue="6"><a class="link-dark" href="/">Spain</a></li>
+                </ol>
             </div>
             <div class="col-4">
                 <h5>Released year</h5>
@@ -57,10 +57,10 @@
                     <li><a class="link-dark" href="/">2007-2014</a></li>
                     <li><a class="link-dark" href="/">1999-2006</a></li>
                     <li><a class="link-dark" href="/">Before 1998</a></li>
-                </ul>
+                </ul>   
             </div>
         </div>
-        <p class="text-center"><a class="link-dark"     href="">All</a></p>
+        <p class="text-center"><a class="link-dark" href="/view_movies">All</a></p>
     </div>
     {% endif %}
     {% if user.id==1 %}
@@ -68,8 +68,8 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <h3 class>PeliReview</h3>
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Edit your user information</a>
-                <a class="nav-item nav-link active" href="#">View your user information</a>
+                <a class="nav-item nav-link active" href="/edit_user">Edit your user information</a>
+                <a class="nav-item nav-link active" href="/view_user">View your user information</a>
                 <a class="nav-item nav-link active btn btn-warning" href="/logout">Logout</a>
             </div>
         </nav> 
