@@ -25,19 +25,34 @@
         </div>
         <div class="mx-auto row mt-5">
             <div class="col-4">
-                <h5>Genre</h5>
-                <ul>
-                    <li><a class="link-dark" href="/">Action</a></li>
-                    <li><a class="link-dark" href="/">Comedy</a></li>
-                    <li><a class="link-dark" href="/">Drama</a></li>
-                    <li><a class="link-dark" href="/">Fantasy</a></li>
-                    <li><a class="link-dark" href="/">Horror</a></li>
-                    <li><a class="link-dark" href="/">Romance</a></li>
-                    <li><a class="link-dark" href="/">Thriller</a></li>
-                    <li><a class="link-dark" href="/">Science fiction</a></li>
-                    <li><a class="link-dark" href="/">Adventure</a></li>
-                    <li><a class="link-dark" href="/">Historical</a></li>
-                </ul>
+                <form action="/search/genre" method="post">
+                    <h5>Genre</h5>
+                    <div>
+                        <input type="radio" value="Action" name="genre" id="action">
+                        <label for="action">Action</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Comedy" name="genre" id="comedy">
+                        <label for="comedy">Comedy</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Drama" name="genre" id="drama">
+                        <label for="drama">Drama</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Fantasy" name="genre" id="fantasy">
+                        <label for="fantasy">Fantasy</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Horror" name="genre" id="horror">
+                        <label for="horror">Horror</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Romance" name="genre" id="romance">
+                        <label for="romance">Romance</label>
+                    </div>
+                    <input type="submit" value="Search" class="btn btn-info mt-3">
+                </form>
             </div>
             <div class="col-4">
                 <h5>Country</h5>

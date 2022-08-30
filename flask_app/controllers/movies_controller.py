@@ -62,3 +62,16 @@ def view_all_movies():
         return redirect('/login')
     movies=Movie.view_movies()
     return render_template('/view_movies.html',movies=movies)
+
+@app.route('/search/<searchtype>', methods=['POST'])
+def search_movies(searchtype):
+    if searchtype=='genre':
+        search_form='genre'
+        movies=Movie.search_genre(request.form)
+    elif searchtype=='country':
+        search_form='country'
+        movies=Movie.search_country(request.form)
+    else:
+        search_form='year'
+        movies=Movie.search_year(request.form)
+    return render_template('search.html', search_form=search_form, movies=movies)

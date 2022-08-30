@@ -70,6 +70,23 @@ class User:
         result = connectToMySQL('proyecto').query_db(query,form)
         return result
     
+    @classmethod
+    def delete_user(cls, data):
+        query1='SELECT * FROM users_has_reviews WHERE user_like_id=%(id)s'
+        result1=connectToMySQL('proyecto').query_db(query1,data)
+        query2='SELECT * FROM reviews WHERE user_id=%(id)s'
+        result2=connectToMySQL('proyecto').query_db(query2,data)
+        print('hiiiiiiiiiiiii',result2)
+        if len(result2)>0:
+            query3='DELETE FROM reviews WHERE user_id=%(id)s'
+            result3=connectToMySQL('proyecto').query_db(query3,data)
+        if len(result1)>0:
+            query5='DELETE FROM users_has_reviews WHERE user_like_id=%(id)s'
+            result5=connectToMySQL('proyecto').query_db(query5,data)
+        query4='DELETE FROM users WHERE id=%(id)s'
+        result4=connectToMySQL('proyecto').query_db(query4,data)
+        return result4
+    
     @staticmethod
     def validation(form):
         is_valid=True
@@ -111,7 +128,6 @@ class User:
             valid=False
         query1 = 'SELECT * FROM users WHERE nickname=%(nickname)s and id!=%(id)s'
         results1 = connectToMySQL('proyecto').query_db(query1, form)
-        print(results1)
         if len(results1)>=1:
             flash('Nickname already exists', 'edit')
             valid=False

@@ -43,7 +43,7 @@ def register():
 def login():
     user = User.user_by_email(request.form)
     if not user: 
-        flash('Wrong email', 'login')
+        flash('Wrong email or deleted account', 'login')
         return redirect('/')
     if not bcrypt.check_password_hash(user.password, request.form['password']):
         flash('Wrong password', 'login')
@@ -91,6 +91,14 @@ def update_user():
             return redirect('/edit_user')
     User.edit_user(request.form)
     return redirect('/view_user')
+
+@app.route('/delete/<int:id>')
+def delete_user(id):
+    if not 'id' in session:
+        return redirect('/login')
+    data = {'id':id}
+    User.delete_user(data)
+    return redirect('/home')
 
 @app.route('/change_password', methods=['POST'])
 def change_password():

@@ -12,6 +12,7 @@ class Review:
         self.updated_at=data['updated_at']
         
         self.nickname=data['nickname']
+        self.count_likes=data['count_likes']
         
     @classmethod
     def create_review(cls,form):
@@ -21,7 +22,8 @@ class Review:
     
     @classmethod
     def view_reviews_by_movie(cls,data):
-        query='SELECT reviews.*, movies.*, users.nickname AS nickname FROM reviews LEFT JOIN movies ON movies.id=reviews.movie_id LEFT JOIN users ON reviews.user_id=users.id WHERE reviews.movie_id = %(movie_id)s;'
+        #query='SELECT reviews.*, movies.*, users.nickname AS nickname FROM reviews LEFT JOIN movies ON movies.id=reviews.movie_id LEFT JOIN users ON reviews.user_id=users.id WHERE reviews.movie_id = %(movie_id)s;'
+        query='SELECT reviews.*, movies.*, users.nickname AS nickname, count(review_id) AS count_likes FROM reviews LEFT JOIN movies ON movies.id=reviews.movie_id LEFT JOIN users ON reviews.user_id=users.id LEFT JOIN users_has_reviews ON reviews.id=users_has_reviews.review_id WHERE reviews.movie_id = %(movie_id)s GROUP BY reviews.id'
         results = connectToMySQL('proyecto').query_db(query, data)
         print(results)
         reviews=[]

@@ -33,9 +33,12 @@ def view_reviews_by_movie(id):
     movie=Movie.view_by_id(data_movie)
     reviews=Review.view_reviews_by_movie(data)
     user = User.user_by_id(data_user)
+    #count_likes=UserReview.count_likes(request.form['review_id'])
     return render_template('view_reviews_by_movie.html', reviews=reviews, movie=movie, user=user)
 
 @app.route('/insert_like', methods=['POST'])
 def insert_like():
+    if not UserReview.valid_like(request.form):
+        return redirect('view_reviews/'+request.form['movie_id'])
     UserReview.insert_like(request.form)
     return redirect('/view_reviews/'+request.form['movie_id'])
