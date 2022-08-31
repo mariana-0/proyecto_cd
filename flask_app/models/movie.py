@@ -75,7 +75,16 @@ class Movie:
     def search_genre(cls, form):
         query='SELECT movies.*, round(AVG(reviews.rate),1) AS average_rate FROM movies LEFT JOIN reviews ON movies.id=reviews.movie_id WHERE movies.genre=%(genre)s GROUP BY movies.id'
         results=connectToMySQL('proyecto').query_db(query,form)
-        print('hiiiiiiiiiii0+',results)
+        movies=[]
+        for movie in results:
+            inst_movie=cls(movie)
+            movies.append(inst_movie)
+        return movies
+    
+    @classmethod
+    def search_country(cls, form):
+        query='SELECT movies.*, round(AVG(reviews.rate),1) AS average_rate FROM movies LEFT JOIN reviews ON movies.id=reviews.movie_id WHERE movies.country=%(country)s GROUP BY movies.id'
+        results=connectToMySQL('proyecto').query_db(query,form)
         movies=[]
         for movie in results:
             inst_movie=cls(movie)

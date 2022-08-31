@@ -51,31 +51,79 @@
                         <input type="radio" value="Romance" name="genre" id="romance">
                         <label for="romance">Romance</label>
                     </div>
+                    <div>
+                        <input type="radio" value="Thriller" name="genre" id="thriller">
+                        <label for="thirller">Thriller</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Science Fiction" name="genre" id="science_fiction">
+                        <label for="science_fiction">Science Fiction</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Adventure" name="genre" id="adventure">
+                        <label for="adventure">Adventure</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Historical" name="genre" id="historical">
+                        <label for="historical">Historical</label>
+                    </div>
                     <input type="submit" value="Search" class="btn btn-info mt-3">
                 </form>
             </div>
             <div class="col-4">
-                <h5>Country</h5>
-                <ol type="a">
-                    <li value="1"><a class="link-dark" href="/">USA</a></li>
-                    <li value="2"><a class="link-dark" href="/">UK</a></li>
-                    <li value="3"><a class="link-dark" href="/">France</a></li>
-                    <li value="4"><a class="link-dark" href="/">China</a></li>
-                    <li value="5"><a class="link-dark" href="/">India</a></li>
-                    <li vlaue="6"><a class="link-dark" href="/">Spain</a></li>
-                </ol>
+                <form action="/search/country" method="post">
+                    <h5>Country</h5>
+                    <div>
+                        <input type="radio" value="USA" name="country" id="usa">
+                        <label for="usa">USA</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="UK" name="country" id="uk">
+                        <label for="uk">UK</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="France" name="country" id="france">
+                        <label for="france">France</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="China" name="country" id="china">
+                        <label for="china">China</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="India" name="country" id="india">
+                        <label for="india">India</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="Spain" name="country" id="spain">
+                        <label for="spain">Spain</label>
+                    </div>
+                    <input type="submit" value="Search" class="btn btn-info mt-3">
+                </form>
             </div>
-            <div class="col-4">
-                <h5>Released year</h5>
-                <ul>
-                    <li><a class="link-dark" href="/">2015-Today</a></li>
-                    <li><a class="link-dark" href="/">2007-2014</a></li>
-                    <li><a class="link-dark" href="/">1999-2006</a></li>
-                    <li><a class="link-dark" href="/">Before 1998</a></li>
-                </ul>   
+            <div class="col-4">  
+                <form action="/search/year" method="post">
+                    <h5>Released year</h5>
+                    <div>
+                        <input type="radio" value="2015-2022" name="year" id="current">
+                        <label for="current">2015-Today</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="2007-2014" name="year" id="current1">
+                        <label for="current1">2007-2014</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="1999-2006" name="year" id="current2">
+                        <label for="current2">1999-2006</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="before 1998" name="year" id="current3">
+                        <label for="current3">Before 1998</label>
+                    </div>
+                    <input type="submit" value="Search" class="btn btn-info mt-3">
+                </form>
             </div>
         </div>
-        <p class="text-center"><a class="link-dark" href="/view_movies">All</a></p>
+        <p class="text-center"><a class="btn btn-secondary" href="/view_movies">All</a></p>
     </div>
     {% endif %}
     {% if user.id==1 %}

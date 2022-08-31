@@ -35,6 +35,25 @@
                 {%endfor%}
             </div>
         {% endif %}
+        {% if search_form=='country' %}
+            <div class="row mt-5">
+                {% for movie in movies %}
+                <div class="col-3">
+                    <img src="../static/img/{{movie.name}}.png" class="img-thumbnail" width="200" height="200">
+                </div>
+                <div class="col-3">
+                    <h5>{{movie.name}}</h5>
+                    <p>Released year: {{movie.year}}</p>
+                    <p>Main Genre: {{movie.genre}}</p>
+                    <p>Director: {{movie.director}}</p>
+                    <p>Country: {{movie.country}}</p>
+                    <p>Average rate: {{movie.average_rate}}</p>
+                    <a href="/view_reviews/{{movie.id}}" class="btn btn-primary">View reviews</a>
+                    <a href="/create_review/{{movie.id}}" class="btn btn-info">Review</a>
+                </div>
+                {%endfor%}
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>
