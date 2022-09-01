@@ -90,7 +90,18 @@ class Movie:
             inst_movie=cls(movie)
             movies.append(inst_movie)
         return movies
+    
+    @classmethod
+    def search_year(cls, form):
+        query='SELECT movies.*, round(AVG(reviews.rate),1) AS average_rate FROM movies LEFT JOIN reviews ON movies.id=reviews.movie_id WHERE year>=%(from_year)s and year<=%(to_year)s GROUP BY movies.id'
+        results=connectToMySQL('proyecto').query_db(query,form)
+        movies=[]
+        for movie in results:
+            inst_movie=cls(movie)
+            movies.append(inst_movie)
+        return movies
         
+    
     
     @staticmethod
     def valid_movie(form):
@@ -98,7 +109,7 @@ class Movie:
         if form['name']=='':
             flash('Missing name', 'create_movie')
             is_valid=False
-        if len(form['year'])<4:
+        if len(form['year'])!=4:
             flash('Enter a valid year', 'create_movie')
             is_valid=False
         if len(form['director'])<2:
@@ -108,3 +119,12 @@ class Movie:
             flash('Country at least two characteres','create_movie')
             is_valid=False
         return is_valid  
+    
+    @staticmethod
+    def valid_years(form):
+        year_valid=True
+        if (len(form['from_year'] )!=4 or len(form['to_year'])!=4):
+            flash('Enter valid years please','year')
+            year_valid=False
+        return year_valid
+        #if form['from_year']==form['to_year']

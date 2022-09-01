@@ -10,7 +10,10 @@
 <body>
     <div class="container">  
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <h3 class>PeliReview</h3>
+            <a class="navbar-brand" href="/home">
+                <img src="../static/img/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                PeliReview
+            </a>
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/home">Home</a>
                 <a class="nav-item nav-link active btn btn-warning" href="/logout">Logout</a>
@@ -36,6 +39,25 @@
             </div>
         {% endif %}
         {% if search_form=='country' %}
+            <div class="row mt-5">
+                {% for movie in movies %}
+                <div class="col-3">
+                    <img src="../static/img/{{movie.name}}.png" class="img-thumbnail" width="200" height="200">
+                </div>
+                <div class="col-3">
+                    <h5>{{movie.name}}</h5>
+                    <p>Released year: {{movie.year}}</p>
+                    <p>Main Genre: {{movie.genre}}</p>
+                    <p>Director: {{movie.director}}</p>
+                    <p>Country: {{movie.country}}</p>
+                    <p>Average rate: {{movie.average_rate}}</p>
+                    <a href="/view_reviews/{{movie.id}}" class="btn btn-primary">View reviews</a>
+                    <a href="/create_review/{{movie.id}}" class="btn btn-info">Review</a>
+                </div>
+                {%endfor%}
+            </div>
+        {% endif %}
+        {% if search_form=='year' %}
             <div class="row mt-5">
                 {% for movie in movies %}
                 <div class="col-3">

@@ -72,6 +72,8 @@ def search_movies(searchtype):
         search_form='country'
         movies=Movie.search_country(request.form)
     else:
+        if not Movie.valid_years(request.form):
+            return redirect('/home')
         search_form='year'
         movies=Movie.search_year(request.form)
     return render_template('search.html', search_form=search_form, movies=movies)

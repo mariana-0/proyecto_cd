@@ -9,16 +9,19 @@
 </head>
 <body class="bg-light">
     <input type="hidden" name="id" value="user.id">
-    {% if user.id!=1 %}
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <h3 class>PeliReview</h3>
+            <a class="navbar-brand" href="/home">
+                <img src="../static/img/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                PeliReview
+            </a>
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="/view_user">View your user information</a>
                 <a class="nav-item nav-link active" href="/edit_user">Edit your user information</a>
                 <a class="nav-item nav-link active btn btn-warning" href="/logout">Logout</a>
             </div>
         </nav> 
+        {% if user.id!=1 %}
         <div class="mt-3">   
             <h4 class="text-center">Hello! {{user.nickname}}, What do you want to do today?</h4>
             <p class="text-center">Recommend or search movies according to your preferences:</p>
@@ -28,7 +31,7 @@
                 <form action="/search/genre" method="post">
                     <h5>Genre</h5>
                     <div>
-                        <input type="radio" value="Action" name="genre" id="action">
+                        <input type="radio" value="Action" name="genre" id="action" checked>
                         <label for="action">Action</label>
                     </div>
                     <div>
@@ -74,7 +77,7 @@
                 <form action="/search/country" method="post">
                     <h5>Country</h5>
                     <div>
-                        <input type="radio" value="USA" name="country" id="usa">
+                        <input type="radio" value="USA" name="country" id="usa" checked>
                         <label for="usa">USA</label>
                     </div>
                     <div>
@@ -103,39 +106,29 @@
             <div class="col-4">  
                 <form action="/search/year" method="post">
                     <h5>Released year</h5>
-                    <div>
-                        <input type="radio" value="2015-2022" name="year" id="current">
-                        <label for="current">2015-Today</label>
+                    {% with messages = get_flashed_messages(category_filter=['year'])%}
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                        {% for message in messages%}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% endwith %}
+                    <p>Please enter the range of years that you want to search.</p>
+                    <div class="form-group">
+                        <label for="from_year">From:</label>
+                        <input type="number" id="from_year" name="from_year" class="form-control">
+                        <label for="to_year">To:</label>
+                        <input type="number" id="to_year" name="to_year" class="form-control">
+                        <input type="submit" value="Search" class="btn btn-info mt-3">
                     </div>
-                    <div>
-                        <input type="radio" value="2007-2014" name="year" id="current1">
-                        <label for="current1">2007-2014</label>
-                    </div>
-                    <div>
-                        <input type="radio" value="1999-2006" name="year" id="current2">
-                        <label for="current2">1999-2006</label>
-                    </div>
-                    <div>
-                        <input type="radio" value="before 1998" name="year" id="current3">
-                        <label for="current3">Before 1998</label>
-                    </div>
-                    <input type="submit" value="Search" class="btn btn-info mt-3">
                 </form>
             </div>
         </div>
         <p class="text-center"><a class="btn btn-secondary" href="/view_movies">All</a></p>
-    </div>
-    {% endif %}
-    {% if user.id==1 %}
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <h3 class>PeliReview</h3>
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/edit_user">Edit your user information</a>
-                <a class="nav-item nav-link active" href="/view_user">View your user information</a>
-                <a class="nav-item nav-link active btn btn-warning" href="/logout">Logout</a>
-            </div>
-        </nav> 
+        {% endif %}
+        {% if user.id==1 %}
         <div class="mt-3">   
             <h4 class="text-center">Hello! {{user.nickname}}, Please see your admin menu</h4>
         </div>
